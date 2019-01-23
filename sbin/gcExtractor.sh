@@ -1,13 +1,14 @@
-currentDate=$(date +%Y%m%d)
-fileName=$currentDate.log
-if [ -e $fileName ];then
-  rm $currentDate.log
+source ./envConst.sh
+source ./fileNameConst.sh
+outputFile=$CURRENT_DATE.log
+if [ -e $outputFile ];then
+  rm $outputFile
 fi
 while read -r line; do
   if [[ $line == *"concurrent-sweep-start]"* ]];then
-    echo $line >>$currentDate.log
+    echo $line >>$outputFile
   fi
-done <../data/gc.log
+done <$BASE_PATH$GC_LOG_NAME
 #done <../data/gc-20190119.csv
 
 #how to use [[]]
